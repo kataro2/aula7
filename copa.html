@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Copa do Mundo 2026 | Futebol Global</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Poppins', 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(145deg, #f2f2f2 0%, #e0e4e8 100%);
+            color: #1a2b3c;
+            line-height: 1.5;
+        }
+
+        /* Container principal */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+        }
+
+        /* HEADER estilizado */
+        header {
+            background: linear-gradient(135deg, #0a2f44 0%, #1e5f6e 100%);
+            color: white;
+            border-radius: 2rem 2rem 1.5rem 1.5rem;
+            padding: 2rem 2rem 1.8rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        header:hover {
+            transform: translateY(-3px);
+        }
+
+        .header-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .title-badge h1 {
+            font-size: 2.8rem;
+            letter-spacing: -0.5px;
+            font-weight: 800;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+        }
+
+        .title-badge p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+
+        .worldcup-logo {
+            background: rgba(255,255,240,0.15);
+            backdrop-filter: blur(6px);
+            border-radius: 100px;
+            padding: 0.6rem 1.4rem;
+            font-weight: bold;
+            font-size: 1.8rem;
+            font-family: monospace;
+            border: 1px solid rgba(255,215,0,0.5);
+            box-shadow: 0 0 12px rgba(255,215,0,0.3);
+        }
+
+        /* NAV estilizado */
+        nav {
+            background: white;
+            border-radius: 60px;
+            margin-bottom: 2.2rem;
+            padding: 0.6rem 1.2rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            backdrop-filter: blur(4px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        nav ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            list-style: none;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.6rem 1.4rem;
+            border-radius: 40px;
+            color: #0a2f44;
+            transition: all 0.25s;
+            font-size: 1rem;
+            background: transparent;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            background: #0a2f44;
+            color: white;
+            transform: scale(1.02);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Grid de sections */
+        .grid-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        /* Estilo base para cada section */
+        section {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(2px);
+            border-radius: 2rem;
+            padding: 1.8rem 2rem;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+            border: 1px solid rgba(255,255,200,0.5);
+        }
+
+        section:hover {
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.2);
+        }
+
+        section h2 {
+            font-size: 1.9rem;
+            border-left: 6px solid #e67e22;
+            padding-left: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: #1f4e6e;
+            font-weight: 700;
+        }
+
+        /* Articles dentro das sections */
+        article {
+            background: #fefef7;
+            border-radius: 1.5rem;
+            padding: 1.4rem 1.6rem;
+            margin-bottom: 1.5rem;
+            transition: 0.15s linear;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        article:last-child {
+            margin-bottom: 0;
+        }
+
+        article h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #c4450c;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        article h3 i {
+            font-weight: 400;
+            font-style: normal;
+            font-size: 1.2rem;
+        }
+
+        article p {
+            color: #2c3e44;
+            font-size: 1rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .highlight {
+            background: #eef2fa;
+            border-left: 4px solid #f39c12;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            margin-top: 0.8rem;
+            font-weight: 500;
+        }
+
+        .stadia-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .stadia-badge {
+            background: #e9ecef;
+            border-radius: 2rem;
+            padding: 0.3rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1e4663;
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            background: #0f2c38;
+            color: #cddfe6;
+            border-radius: 2rem;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 680px) {
+            .container {
+                padding: 0.8rem 1rem;
+            }
+            header .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .title-badge h1 {
+                font-size: 2rem;
+            }
+            nav ul {
+                gap: 0.4rem;
+            }
+            nav a {
+                padding: 0.4rem 0.9rem;
+                font-size: 0.85rem;
+            }
+            section h2 {
+                font-size: 1.5rem;
+            }
+            article h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- TAG HEADER (cabeçalho principal da página) -->
+    <header>
+        <div class="header-content">
+            <div class="title-badge">
+                <h1>🏆 COPA DO MUNDO 2026</h1>
+                <p>🇨🇦🇲🇽🇺🇸 · A maior edição de todos os tempos · 48 seleções</p>
+            </div>
+            <div class="worldcup-logo">
+                ⚽ 2026
+            </div>
+        </div>
+        <div style="margin-top: 1rem; font-size: 0.9rem; border-top: 1px solid rgba(255,255,200,0.3); padding-top: 0.8rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+            <span>🌟 16 sedes</span>
+            <span>🌎 3 países anfitriões</span>
+            <span>📅 11 de junho – 19 de julho</span>
+        </div>
+    </header>
+
+    <!-- TAG NAV (menu de navegação âncora) -->
+    <nav>
+        <ul>
+            <li><a href="#visao-geral">📌 Visão geral</a></li>
+            <li><a href="#sedes-estadios">🏟️ Sedes & estádios</a></li>
+            <li><a href="#formato">⚙️ Novo formato</a></li>
+            <li><a href="#favoritos">⭐ Favoritos</a></li>
+            <li><a href="#legado">🌱 Legado</a></li>
+        </ul>
+    </nav>
+
+    <!-- Agrupamento das seções principais com articles -->
+    <div class="grid-sections">
+        <!-- SECTION 1 - Visão geral com artigo interno -->
+        <section id="visao-geral">
+            <h2>📖 Visão geral da Copa do Mundo 2026</h2>
+            <article>
+                <h3>🌍 História inédita: três nações anfitriãs</h3>
+                <p>Pela primeira vez, a Copa do Mundo da FIFA será sediada por três países: <strong>Estados Unidos, Canadá e México</strong>. O torneio marca o retorno do México após sediar em 1970 e 1986, o retorno dos EUA (1994) e a estreia do Canadá como anfitrião. Serão 48 equipes competindo em 16 cidades espalhadas pela América do Norte.</p>
+                <div class="highlight">
+                    🏅 Jogo de abertura: Estádio Azteca (Cidade do México) – 11 de junho de 2026.<br>
+                    🏆 Final: MetLife Stadium (Nova York/Nova Jersey) – 19 de julho de 2026.
+                </div>
+            </article>
+            <article>
+                <h3>📊 Expansão histórica: 48 seleções</h3>
+                <p>Após o sucesso da edição de 2026 já programada com 48 times (a primeira foi em 2026, confirmada), o torneio vai radicalizar o sistema de grupos. Serão 12 grupos de 4 seleções cada, com os dois primeiros e os 8 melhores terceiros colocados avançando para as oitavas de final. Mais emoção e surpresas garantidas!</p>
+                <p>🌎 <strong>Distribuição de vagas por confederação:</strong> UEFA (16), CONMEBOL (6), CONCACAF (6 + 3 anfitriões), CAF (9), AFC (8), OFC (1) + repescagem.</p>
+            </article>
+        </section>
+
+        <!-- SECTION 2 - Sedes e estádios (article por cidade/estádio) -->
+        <section id="sedes-estadios">
+            <h2>🏟️ Sedes icônicas & estádios</h2>
+            <article>
+                <h3>🇺🇸 Estados Unidos (11 sedes)</h3>
+                <p>Os EUA receberão a maior parte dos jogos, com estádios de primeira linha da NFL e universidades. Destaques para o <strong>MetLife Stadium</strong> (Nova York) que sediará a grande final, o <strong>SoFi Stadium</strong> (Los Angeles), o <strong>Mercedes-Benz Stadium</strong> (Atlanta) e o <strong>AT&T Stadium</strong> (Arlington).</p>
+                <div class="stadia-list">
+                    <span class="stadia-badge">🏟️ MetLife (82.500)</span>
+                    <span class="stadia-badge">🏟️ SoFi Stadium (70.240)</span>
+                    <span class="stadia-badge">🏟️ Hard Rock (Miami)</span>
+                    <span class="stadia-badge">🏟️ Arrowhead (KC)</span>
+                </div>
+            </article>
+            <article>
+                <h3>🇲🇽 México – Alma do futebol mundial</h3>
+                <p>O Estádio Azteca, palco de dois finais de Copa (1970, 1986), será novamente protagonista com a partida de abertura do torneio. Outras sedes mexicanas incluem o <strong>Estadio BBVA</strong> (Monterrey) e o <strong>Estadio Akron</strong> (Guadalajara). A torcida mexicana promete lotar cada seção.</p>
+            </article>
+            <article>
+                <h3>🇨🇦 Canadá: nova fronteira do futebol</h3>
+                <p>Toronto, Vancouver e Montreal receberão partidas históricas. O <strong>BMO Field</strong> (Toronto) passará por grandes expansões, enquanto o <strong>BC Place</strong> (Vancouver) sediará jogos emocionantes. Será a primeira participação canadense como anfitrião, e a seleção local vem em ascensão.</p>
+            </article>
+        </section>
+
+        <!-- SECTION 3 - Novo formato (article com explicações táticas) -->
+        <section id="formato">
+            <h2>⚡ Novo formato: mais times, mais jogos</h2>
+            <article>
+                <h3>📅 Calendário e fases eliminatórias</h3>
+                <p>Pela primeira vez, o torneio terá 104 partidas (contra 64 das edições anteriores). O campeão terá que disputar 8 jogos (ao invés de 7). O novo sistema de grupos + playoff intermediário aumenta o drama e oferece chances reais para seleções menores.</p>
+                <p><strong>✅ Mudanças principais:</strong> 12 grupos de 4 times; 32 classificados para o mata-mata (oitavas de final). A fase de grupos eliminará 16 seleções. Expectativa de recorde de gols e público total superior a 5 milhões de espectadores nos estádios.</p>
+            </article>
+            <article>
+                <h3>🏅 Critérios de desempate inovadores</h3>
+                <p>Além dos critérios clássicos (saldo de gols, gols marcados), a FIFA implementará sistema de fair-play eletrônico e possível análise de ranking de confrontos. A emoção será potencializada para evitar sorteios.</p>
+                <div class="highlight">
+                    💡 Curiosidade: Pela primeira vez haverá uma "repescagem intercontinental" com 6 times brigando por 2 vagas finais.
+                </div>
+            </article>
+        </section>
+
+        <!-- SECTION 4 - Favoritos e possíveis zebras -->
+        <section id="favoritos">
+            <h2>⭐ Favoritos ao título & potências</h2>
+            <article>
+                <h3>🏆 Campeões em busca do hexa/penta</h3>
+                <p><strong>Argentina (atual campeã)</strong> – com Lionel Messi ainda em atividade? Existe grande expectativa para que o camisa 10 dispute sua última Copa. <strong>França</strong> (vice em 2022) segue com geração de ouro: Mbappé, Tchouaméni e campeões jovens. <strong>Brasil</strong> – buscando o hexa após a eliminação em 2022, o talento de Vini Jr, Rodrygo e novos craques promete.</p>
+            </article>
+            <article>
+                <h3>🌟 Surpresas e seleções em ascensão</h3>
+                <p>O novo formato favorece as chamadas zebras. Países como <strong>Estados Unidos, Canadá e México</strong> (anfitriões) tendem a fazer campanhas fortes com apoio da torcida. <strong>Marrocos</strong>, após a semifinal histórica em 2022, pode surpreender novamente. Japão, Senegal e Ucrânia (caso classifique) são outras apostas.</p>
+                <p>⚡ <strong>Olho nas jovens promessas:</strong> Haaland (Noruega) se classificar? Bellingham (Inglaterra), Wirtz (Alemanha) e os talentos sul-americanos podem brilhar nos gramados norte-americanos.</p>
+            </article>
+        </section>
+
+        <!-- SECTION 5 - Legado e impacto social/econômico -->
+        <section id="legado">
+            <h2>🌎 Legado da Copa 2026</h2>
+            <article>
+                <h3>🚀 Infraestrutura e desenvolvimento do futebol na América do Norte</h3>
+                <p>A Copa do Mundo 2026 vai acelerar investimentos em transporte, modernização de estádios e campos comunitários. Nos EUA, a MLS já cresce exponencialmente, e o torneio deve impulsionar a popularidade do futebol, tornando-o definitivamente um dos principais esportes do país. O Canadá também verá um boom de academias e escolinhas.</p>
+                <p>Estima-se um impacto econômico superior a 5 bilhões de dólares, com criação de milhares de empregos diretos e indiretos, além de um turismo recorde.</p>
+            </article>
+            <article>
+                <h3>🤝 Sustentabilidade e inovação</h3>
+                <p>O comitê organizador promete neutralidade de carbono, uso de energia renovável nos estádios e práticas de redução de plástico. O "Green Goal 2026" inclui transporte público elétrico para torcedores e reflorestamento como contrapartida. A tecnologia de arbitragem (VAR + fora de jogo semi-automático) será ainda mais aprimorada.</p>
+                <div class="highlight">
+                    🌿 Meta: evento com zero resíduos enviados a aterros até 2030, sendo referência em sustentabilidade para megaeventos.
+                </div>
+            </article>
+        </section>
+    </div>
+
+    <!-- Rodapé simples porém elegante -->
+    <footer>
+        <p>© 2025 · Copa do Mundo FIFA 2026™ | Informações oficiais baseadas no plano de sedes e regulamento da FIFA. <br>
+        🇨🇦 🇲🇽 🇺🇸 • “O mundo unido pelo futebol” • www.fifa.com/worldcup2026</p>
+        <p style="margin-top: 0.8rem; opacity: 0.7;">⚽ Preparação, emoção e tradição – 11 de junho de 2026 está chegando!</p>
+    </footer>
+</div>
+</body>
+</html>
