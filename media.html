@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Boletim Escolar | Sistema de Notas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #e0eafc 0%, #cfdef3 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Cards com aparência moderna e suave */
+        .card {
+            max-width: 680px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(2px);
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        .card-header {
+            background: #1e3c72;
+            background: linear-gradient(135deg, #0b2b44, #1a4a6f);
+            padding: 1.6rem 2rem;
+            color: white;
+        }
+
+        .card-header h1 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-header h1::before {
+            content: "📘";
+            font-size: 1.9rem;
+        }
+
+        .card-header p {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            margin-top: 0.5rem;
+        }
+
+        .card-body {
+            padding: 2rem 2rem 2.2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.4rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        label {
+            font-weight: 600;
+            color: #1f2e45;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        label i {
+            font-style: normal;
+            font-size: 1.1rem;
+        }
+
+        input, select {
+            padding: 0.85rem 1rem;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 1.2rem;
+            font-size: 1rem;
+            background: #fefefe;
+            transition: all 0.2s;
+            outline: none;
+            font-weight: 500;
+            color: #0a2b3e;
+        }
+
+        input:focus, select:focus {
+            border-color: #1e6f9f;
+            box-shadow: 0 0 0 3px rgba(30, 111, 159, 0.2);
+            background: white;
+        }
+
+        .notas-grid {
+            background: #f8fafd;
+            padding: 1.2rem 1rem;
+            border-radius: 1.5rem;
+            margin: 1rem 0 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+
+        .nota-item input {
+            width: 100%;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .nota-item label {
+            justify-content: center;
+            text-transform: none;
+            font-size: 0.8rem;
+        }
+
+        button {
+            background: #1e5a7d;
+            color: white;
+            border: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 0.9rem 1.6rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            margin-top: 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        button:hover {
+            background: #10455f;
+            transform: scale(0.98);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-note {
+            font-size: 0.7rem;
+            color: #587a9e;
+            text-align: center;
+            margin-top: 1.2rem;
+        }
+
+        hr {
+            margin: 1rem 0;
+            border-color: #e9edf2;
+        }
+
+        /* página do boletim (segunda tela) */
+        .bulletin-detail {
+            background: white;
+        }
+
+        .student-badge {
+            background: #eef2fa;
+            padding: 1rem 1.5rem;
+            border-radius: 1.5rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .student-badge p {
+            margin: 0.3rem 0;
+        }
+
+        .media-final {
+            background: #eef6ff;
+            border-left: 6px solid #1e6f9f;
+            padding: 1rem 1.5rem;
+            border-radius: 1.2rem;
+            margin: 1.2rem 0;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .media-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1e5a7d;
+        }
+
+        .nota-lista {
+            margin: 1rem 0;
+        }
+
+        .nota-linha {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #e2edf7;
+        }
+
+        .situacao {
+            font-weight: 700;
+            padding: 0.25rem 0.9rem;
+            border-radius: 30px;
+            display: inline-block;
+        }
+
+        .aprovado {
+            background: #c8f0e0;
+            color: #0c6b4b;
+        }
+
+        .recuperacao {
+            background: #fff0cf;
+            color: #b45f1b;
+        }
+
+        .reprovado {
+            background: #ffe0db;
+            color: #b13e3e;
+        }
+
+        .btn-voltar {
+            background: #eef2f9;
+            color: #1f4868;
+            margin-top: 1rem;
+            box-shadow: none;
+        }
+
+        .btn-voltar:hover {
+            background: #dee5f0;
+            transform: none;
+        }
+
+        footer {
+            font-size: 0.7rem;
+            text-align: center;
+            padding: 1rem;
+            border-top: 1px solid #ecf3f9;
+            color: #6c8dae;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PÁGINA 1: FORMULÁRIO DE ENTRADA (DADOS + NOTAS) -->
+    <div id="formPage" class="card">
+        <div class="card-header">
+            <h1>Boletim Escolar</h1>
+            <p>Preencha os dados do aluno e as quatro notas bimestrais</p>
+        </div>
+        <div class="card-body">
+            <form id="studentForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label><i>👤</i> Nome do Aluno</label>
+                        <input type="text" id="nomeAluno" placeholder="Ex: Ana Clara Souza" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i>📚</i> Curso</label>
+                        <input type="text" id="curso" placeholder="Ex: Ensino Médio - Técnico em Informática" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i>📅</i> Ano Letivo</label>
+                        <input type="text" id="anoLetivo" placeholder="Ex: 2026 / 3º Ano" required>
+                    </div>
+                </div>
+
+                <div class="notas-grid">
+                    <div class="nota-item">
+                        <label>📘 1ª Nota (Bim1)</label>
+                        <input type="number" id="nota1" step="0.1" min="0" max="10" placeholder="0,0 - 10,0" required>
+                    </div>
+                    <div class="nota-item">
+                        <label>📗 2ª Nota (Bim2)</label>
+                        <input type="number" id="nota2" step="0.1" min="0" max="10" placeholder="0,0 - 10,0" required>
+                    </div>
+                    <div class="nota-item">
+                        <label>📙 3ª Nota (Bim3)</label>
+                        <input type="number" id="nota3" step="0.1" min="0" max="10" placeholder="0,0 - 10,0" required>
+                    </div>
+                    <div class="nota-item">
+                        <label>📕 4ª Nota (Bim4)</label>
+                        <input type="number" id="nota4" step="0.1" min="0" max="10" placeholder="0,0 - 10,0" required>
+                    </div>
+                </div>
+
+                <div class="info-note">
+                    ⚠️ As notas devem ser valores entre 0 e 10 (use ponto ou vírgula? Apenas ponto decimal).
+                </div>
+                <button type="submit" id="gerarBoletimBtn">📋 Gerar Boletim & Média Final ➡️</button>
+            </form>
+        </div>
+        <footer>Sistema Acadêmico • Registro de Desempenho</footer>
+    </div>
+
+    <!-- PÁGINA 2: BOLETIM COMPLETO COM MÉDIA FINAL (inicialmente oculta) -->
+    <div id="resultPage" class="card" style="display: none;">
+        <div class="card-header">
+            <h1>📄 Boletim Final</h1>
+            <p>Desempenho do aluno - Média calculada e situação</p>
+        </div>
+        <div class="card-body bulletin-detail">
+            <div class="student-badge" id="infoAlunoResumo">
+                <!-- dados preenchidos dinamicamente -->
+                <p><strong>🧑‍🎓 Aluno:</strong> <span id="resNome">---</span></p>
+                <p><strong>📖 Curso:</strong> <span id="resCurso">---</span></p>
+                <p><strong>📆 Ano Letivo:</strong> <span id="resAno">---</span></p>
+            </div>
+
+            <div style="margin-top: 0.5rem;">
+                <strong>📊 Notas individuais (bimestres):</strong>
+                <div class="nota-lista" id="notasLista"></div>
+            </div>
+
+            <div class="media-final">
+                <span>⭐ MÉDIA FINAL (aritmética):</span>
+                <span class="media-value" id="mediaFinalValor">--</span>
+            </div>
+
+            <div style="background: #f9fcfd; border-radius: 1rem; padding: 1rem;">
+                <strong>🏁 Situação no ano letivo:</strong>
+                <div style="margin-top: 0.7rem;" id="situacaoAluno"></div>
+            </div>
+
+            <button id="voltarFormBtn" class="btn-voltar">🔙 Voltar e editar dados</button>
+        </div>
+        <footer>Boletim oficial • Média final ≥ 6,0 para aprovação (critério padrão)</footer>
+    </div>
+
+    <script>
+        (function() {
+            // Elementos da página de formulário
+            const formPage = document.getElementById('formPage');
+            const resultPage = document.getElementById('resultPage');
+            const studentForm = document.getElementById('studentForm');
+
+            // Campos de entrada
+            const nomeInput = document.getElementById('nomeAluno');
+            const cursoInput = document.getElementById('curso');
+            const anoInput = document.getElementById('anoLetivo');
+            const nota1Input = document.getElementById('nota1');
+            const nota2Input = document.getElementById('nota2');
+            const nota3Input = document.getElementById('nota3');
+            const nota4Input = document.getElementById('nota4');
+
+            // Elementos de saída (página 2)
+            const resNomeSpan = document.getElementById('resNome');
+            const resCursoSpan = document.getElementById('resCurso');
+            const resAnoSpan = document.getElementById('resAno');
+            const notasListaDiv = document.getElementById('notasLista');
+            const mediaFinalSpan = document.getElementById('mediaFinalValor');
+            const situacaoDiv = document.getElementById('situacaoAluno');
+
+            // Função auxiliar para validar e retornar notas como array de números
+            function obterNotasValidas() {
+                let notas = [];
+                const rawNotas = [nota1Input.value, nota2Input.value, nota3Input.value, nota4Input.value];
+                for (let i = 0; i < rawNotas.length; i++) {
+                    let val = rawNotas[i].trim();
+                    if (val === "") return null;
+                    let num = parseFloat(val);
+                    if (isNaN(num)) return null;
+                    // arredondar duas casas para evitar floats longos (mas sem perder precisão)
+                    num = Math.round(num * 100) / 100;
+                    if (num < 0 || num > 10) return null;
+                    notas.push(num);
+                }
+                return notas;
+            }
+
+            // Função para calcular média aritmética simples
+            function calcularMedia(notasArray) {
+                if (!notasArray || notasArray.length === 0) return 0;
+                let soma = notasArray.reduce((acc, n) => acc + n, 0);
+                let media = soma / notasArray.length;
+                return Math.round(media * 100) / 100; // duas casas decimais
+            }
+
+            // Determinar situação com base na média (critério padrão >=6 aprovado, <6 reprovado, mas poderíamos incluir recuperação, manteremos clássico)
+            function obterSituacao(media) {
+                if (media >= 6.0) {
+                    return { texto: "Aprovado", classe: "aprovado", icone: "✅" };
+                } else if (media >= 4.0) {
+                    return { texto: "Recuperação", classe: "recuperacao", icone: "⚠️" };
+                } else {
+                    return { texto: "Reprovado", classe: "reprovado", icone: "❌" };
+                }
+            }
+
+            // Preenche o boletim na segunda página com os dados coletados
+            function renderizarBoletim(nome, curso, ano, notas, media) {
+                // Dados pessoais
+                resNomeSpan.textContent = nome;
+                resCursoSpan.textContent = curso;
+                resAnoSpan.textContent = ano;
+
+                // Exibir lista de notas (bim1 a bim4)
+                notasListaDiv.innerHTML = "";
+                const bimestres = ["1º Bimestre", "2º Bimestre", "3º Bimestre", "4º Bimestre"];
+                for (let i = 0; i < notas.length; i++) {
+                    const notaValor = notas[i].toFixed(2).replace('.', ',');
+                    const linha = document.createElement('div');
+                    linha.className = "nota-linha";
+                    linha.innerHTML = `<span><strong>${bimestres[i]}</strong></span><span style="font-weight:600;">${notas[i].toFixed(2)}</span>`;
+                    notasListaDiv.appendChild(linha);
+                }
+
+                // Exibir média final
+                mediaFinalSpan.textContent = media.toFixed(2).replace('.', ',');
+
+                // Situação e emblema
+                const situacaoObj = obterSituacao(media);
+                situacaoDiv.innerHTML = `
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+                        <span style="font-size: 1.2rem;">${situacaoObj.icone} ${situacaoObj.texto}</span>
+                        <span class="situacao ${situacaoObj.classe}" style="font-size:0.9rem;">${situacaoObj.texto.toUpperCase()}</span>
+                    </div>
+                    <div style="margin-top: 10px; font-size: 0.85rem; color: #2c5a7a;">
+                        ${situacaoObj.texto === "Aprovado" ? "Parabéns! Você atingiu a média exigida." : 
+                          (situacaoObj.texto === "Recuperação" ? "Estude para a prova de recuperação final." : 
+                          "Dedique-se mais no próximo ano letivo.")}
+                    </div>
+                `;
+            }
+
+            // Função principal: pegar dados, validar, se ok, esconder formulário e mostrar boletim
+            function processarBoletim(event) {
+                event.preventDefault();
+
+                // Captura dos campos textuais
+                const nome = nomeInput.value.trim();
+                const curso = cursoInput.value.trim();
+                const ano = anoInput.value.trim();
+
+                if (nome === "") {
+                    alert("❌ Por favor, informe o NOME do aluno.");
+                    nomeInput.focus();
+                    return;
+                }
+                if (curso === "") {
+                    alert("❌ Informe o CURSO do aluno.");
+                    cursoInput.focus();
+                    return;
+                }
+                if (ano === "") {
+                    alert("❌ Informe o ANO LETIVO (ex: 2026 / 1º Ano).");
+                    anoInput.focus();
+                    return;
+                }
+
+                // Valida notas
+                const notas = obterNotasValidas();
+                if (notas === null) {
+                    alert("⚠️ Atenção! Todas as quatro notas devem ser preenchidas com números entre 0 e 10.\nUse ponto como separador decimal (ex: 7.5).");
+                    return;
+                }
+
+                // Calcular média
+                const media = calcularMedia(notas);
+
+                // Renderizar boletim completo na segunda página
+                renderizarBoletim(nome, curso, ano, notas, media);
+
+                // Transição de páginas: esconder formulário, exibir resultado
+                formPage.style.display = "none";
+                resultPage.style.display = "block";
+                // scroll suave para o topo da segunda tela
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Evento de submit do formulário
+            studentForm.addEventListener('submit', processarBoletim);
+
+            // Botão voltar para o formulário (edição)
+            const voltarBtn = document.getElementById('voltarFormBtn');
+            voltarBtn.addEventListener('click', function() {
+                // mostra novamente o formulário, mantém os dados já inseridos (para edição)
+                formPage.style.display = "block";
+                resultPage.style.display = "none";
+                // opcional: fazer scroll para o topo do form
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                // dá foco no primeiro campo
+                nomeInput.focus();
+            });
+
+            // Acessibilidade: ao carregar, garantir que as páginas estejam no estado correto
+            // Se por acaso houver recarregamento parcial, garante estado inicial
+            formPage.style.display = "block";
+            resultPage.style.display = "none";
+
+            // Validação adicional para notas via event listener (opcional: impedir envio de valores fora do range em tempo real? já fazemos na validação)
+            // Mas podemos adicionar uma melhoria de experiência: ao digitar, limitar máximo 10
+            const notaInputs = [nota1Input, nota2Input, nota3Input, nota4Input];
+            notaInputs.forEach(inp => {
+                inp.addEventListener('change', function() {
+                    let val = parseFloat(this.value);
+                    if (!isNaN(val)) {
+                        if (val > 10) this.value = 10;
+                        if (val < 0) this.value = 0;
+                        if (this.value.includes(',')) {
+                            // Se o usuário tentar usar vírgula, converter para ponto educadamente (boa UX)
+                            let corrected = this.value.replace(',', '.');
+                            let numCorr = parseFloat(corrected);
+                            if (!isNaN(numCorr)) {
+                                if (numCorr > 10) numCorr = 10;
+                                if (numCorr < 0) numCorr = 0;
+                                this.value = numCorr;
+                            }
+                        }
+                    } else if (this.value !== "") {
+                        // se não for número e não estiver vazio, reverter temporariamente
+                        if (this.value !== "") this.value = "";
+                    }
+                });
+                // também prevenir letras
+                inp.addEventListener('keydown', (e) => {
+                    const teclaPermitida = /[0-9.,Backspace,Delete,ArrowLeft,ArrowRight,Tab,Enter]/.test(e.key);
+                    if (!teclaPermitida && e.key !== 'Decimal' && e.key !== 'Period') {
+                        if (!(e.ctrlKey || e.metaKey)) {
+                            e.preventDefault();
+                        }
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
